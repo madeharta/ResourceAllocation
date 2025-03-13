@@ -19,4 +19,7 @@ class BaseStation:
     def get_type(self):
         return self.id
     
+    def get_fading_info(self, ueID):
+        return self.fading_bs_to_ms[ueID]
+    
     
