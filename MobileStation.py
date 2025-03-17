@@ -53,8 +53,8 @@ class MobileStation:
         newX = self.pos[0] + (movingDistance*np.cos(self.getMovingDirection()))
         newY = self.pos[1] - (movingDistance*np.sin(self.getMovingDirection()))
 
-        if (this.bs.getPosition().distance(new PositionHolder(newX, newY)) > Simulator.CELL_RADIUS): 	
+        if (self._get_distance(self.mn.get_pos(), np.array(newX, newY)) > self.bs.get_radius()):	
             # if the user move out to the cell, place it again in cell randomly
-            self.update_pos(this.bs.getRandomPointCircle(CELL_RADIUS))
+            self.update_pos(self.mn.get_random_point())
         else:
             self.update_pos(np.array(newX, newY))
