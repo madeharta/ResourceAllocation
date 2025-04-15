@@ -13,6 +13,8 @@ class MobileStation:
         self.prevPosUpdateShadowing = pos
         self.speed = speed
         self.mn = mn
+        self.bsID = -1
+        self.bcID = -1
 
     def get_id(self):
         return self.id
@@ -20,8 +22,21 @@ class MobileStation:
     def get_pos(self):
         return self.pos
 
+    def get_bs_id(self):
+        return self.bsID
+
+    def get_bc_id(self):
+        return self.bcID
+
     def set_mn(self, mn):
         self.mn = mn
+
+    def set_bs_id(self, bsID):
+        self.bsID = bsID
+
+    def set_bc_id(self, bcID):
+        self.bcID = bcID
+
 
     def update_pos(self, pos):
         self.pos = pos
