@@ -1,0 +1,13 @@
+# Create Environment
+python -m venv .venv
+
+# Activate 
+.venv\Scripts\activate
+
+# Install gymnasium
+pip install gymnasium
+pip install gymnasium pygame
+
+# Install tensforflow
+pip install tensorflow 
+pip install tensorflow tensorflow-gpu

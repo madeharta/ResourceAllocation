@@ -9,7 +9,7 @@ class BaseStation:
         self.type = type
         self.noUE = noUE
         self.pos = pos
-        self.fading_bs_to_ms = np.random(noUE,)*RAND_MAX
+        self.fading_bs_to_ms = np.random.rand(noUE,)*RAND_MAX
         self.radius = radius
 
     def get_pos(self):
