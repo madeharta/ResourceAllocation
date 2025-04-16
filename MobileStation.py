@@ -1,12 +1,15 @@
 import numpy as np
+import math
+import BandCombination
 
 LOG_NORMAL_MEAN = 0
 LOG_NORMAL_STD_MS = 8
+SHANNON_MODUL_GAP = 1
 DECORRELATED_DISTANCE = 50
 
 
 class MobileStation:
-    def __init__(self, id, pos, speed, movDir, mn):
+    def __init__(self, id, pos, speed, movDir, mn, bs, bc):
         self.id = id
         self.pos = pos
         self.shadowingDB = np.random.normal(LOG_NORMAL_MEAN, LOG_NORMAL_STD_MS)
@@ -14,8 +17,8 @@ class MobileStation:
         self.speed = speed
         self.movDir = np.radians(movDir)
         self.mn = mn
-        self.bsID = -1
-        self.bcID = -1
+        self.bs = bs
+        self.bc = bc
 
     def get_id(self):
         return self.id
@@ -23,21 +26,20 @@ class MobileStation:
     def get_pos(self):
         return self.pos
 
-    def get_bs_id(self):
-        return self.bsID
+    def get_bs(self):
+        return self.bs
 
-    def get_bc_id(self):
-        return self.bcID
+    def get_bc(self):
+        return self.bc
 
     def set_mn(self, mn):
         self.mn = mn
 
-    def set_bs_id(self, bsID):
-        self.bsID = bsID
+    def set_bs(self, bs):
+        self.bs = bs
 
-    def set_bc_id(self, bcID):
-        self.bcID = bcID
-
+    def set_bc(self, bc):
+        self.bc = bc
 
     def update_pos(self, pos):
         self.pos = pos
@@ -77,3 +79,14 @@ class MobileStation:
             self.update_pos(self.mn.get_random_point())
         else:
             self.update_pos(np.array(newX, newY))
+
+    def get_throughput(self):
+        listBand = self.bc.get_list_band()
+        listBandwidth = self.bc.get_list_bandwidth()
+        rate = 0
+        # shall calculate SINR here
+        sinr = 0
+        for i in range(len(listBand)):
+            rate += listBandwidth[i] * (math.log10(1 + SHANNON_MODUL_GAP * sinr) / math.log10(2));  
+
+        return rate

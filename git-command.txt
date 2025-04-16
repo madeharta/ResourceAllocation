@@ -1,0 +1,11 @@
+# add all changes to the update stage
+git add .
+
+# commit all changes on local copy 
+git commit -m "Comments"
+
+# push all changes on local copy to main remote branch
+git push origin main --force
+
+# pull and merge all updates of main on remote branch to local copy
+git pull origin main 
