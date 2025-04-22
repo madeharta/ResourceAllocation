@@ -1,6 +1,8 @@
 import numpy as np
 import math
 import BandCombination
+import MapGenerator
+import ChannelGainGenerator
 
 LOG_NORMAL_MEAN = 0
 LOG_NORMAL_STD_MS = 8
@@ -19,6 +21,7 @@ class MobileStation:
         self.mn = mn
         self.bs = bs
         self.bc = bc
+        self.shadowingDB = 0
 
     def get_id(self):
         return self.id
@@ -50,6 +53,9 @@ class MobileStation:
     def get_moving_direction(self):
         return self.movDir
 
+    def get_shadowing(self):
+        return self.shadowingDB
+
     def _get_distance(self, pos1, pos2):
         return np.sqrt(np.power(pos1[0]-pos2[0],2)+np.power(pos1[1]-pos2[1],2))
 
@@ -80,6 +86,16 @@ class MobileStation:
         else:
             self.update_pos(np.array(newX, newY))
 
+    def calculate_sinr(self, mapGen):
+        listBS = mapGen.get_list_bs()
+        gainGen = ChannelGainGenerator()
+        sinr = gainGen.get_channel_gain(self.bs, self)
+
+        recP = 
+        for i in range(len(listBS))
+            if ()
+
+
     def get_throughput(self):
         listBand = self.bc.get_list_band()
         listBandwidth = self.bc.get_list_bandwidth()
@@ -87,6 +103,8 @@ class MobileStation:
         # shall calculate SINR here
         sinr = 0
         for i in range(len(listBand)):
+            
+        
             rate += listBandwidth[i] * (math.log10(1 + SHANNON_MODUL_GAP * sinr) / math.log10(2));  
 
         return rate

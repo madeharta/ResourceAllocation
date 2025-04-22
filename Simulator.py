@@ -10,6 +10,9 @@ class Simulator:
         self.my_map = MapGenerator(N_ENB, N_GNB, N_UE)
         # Shall initiate performance metrics
 
+    def collect_throuhgput(self):
+        for 
+
     def run(self):
         run = True
         # Perform initial RA for each UE

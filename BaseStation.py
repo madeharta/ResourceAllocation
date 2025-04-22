@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 RAND_MAX = 32787
 
@@ -27,6 +28,11 @@ class BaseStation:
     def get_radius(self):
         return self.radius
     
+    def get_distance(self, ms):
+        posMS = ms.get_pos()
+        retVal = math.sqrt(math.pow(self.pos[0] - posMS[0], 2) + math.pow(self.pos[1] - posMS[1], 2))  
+        return 
+
     def _rand_AB(self, a, b):
         return (a+(b-a)*np.random.random_integers())
         

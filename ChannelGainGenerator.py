@@ -16,36 +16,38 @@ MINIMUM_SINR = 0.
 BS_LTE_TYPE = 0
 BS_NR_TYPE = 1
 
-def watt_to_db(self, watt):
+def watt_to_db(watt):
     return (10*np.log10(watt))
     
-def db_to_watt(self, db):
+def db_to_watt(db):
     return (np.pow(10, db/10))
 
 class ChannelGainGenerator:
     def _init_(self):
           print("intisialization")
     
-    def _get_awgn_noise(self):
+    def get_awgn_noise(self):
         # 208333.333 (208kHz) / 1000 (Watt);
         return self._db_to_watt(NOISE_POWER)*SUBCHANNEL_BANDWIDTH/1000.0
 
-    def get_channel_gain(self, bc, tx, rx):
+    def get_channel_gain(self, tx, rx):
         if tx.get_type() == BS_LTE_TYPE:
             pathLoss = -1 * (31 + 40*np.log10(tx.get_distance(rx)))
         else:
             pathLoss = -1 * (31 + 40*np.log10(tx.get_distance(rx)))
             
-        timeOffset = tx.fading_to_ms[rx.get_id()]
-        retVal = pathLoss + rx.getShadowing()
+        retVal = pathLoss + rx.get_shadowing()
+        
+        #timeOffset = tx.fading_to_ms[rx.get_id()]
+        #mf = rx.getMultipath(bc, timeOffset)
+        #return  (retVal + watt_to_db(mf))
 
-        mf = rx.getMultipath(bc, timeOffset)
-
-        return  (retVal + watt_to_db(mf))
+        # for now we do not consider multipath fading
+        return  (retVal)
     
-    def calculate_receive_power(self, txPower, tx, rx, SCID):
+    def calculate_receive_power(self, txPower, tx, rx):
         if (txPower > 0) :
-            return db_to_watt(self.get_channel_gain(tx, rx, SCID)) * txPower
+            return db_to_watt(self.get_channel_gain(tx, rx)) * txPower
         else :
             return 0
 
